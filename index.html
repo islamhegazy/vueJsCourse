@@ -10,30 +10,29 @@
     </head>
     <body>
         <div id="app">
-            <h1>{{title }}</h1>
-            <input type="text" v-on:input="changeTitle"/>
-            <p v-once>{{title}}</p>
-            <p>{{sayHello()}}</p>
-            <a v-bind:href="link">google</a>
-            <p>{{finishedlLink}}</p>
-            <p v-html="finishedlLink"></p>
+            <button v-on:click="increase(2,$event)">increase</button>
+            <p>{{counter}}</p>
+            <p v-on:mousemove="updateCoordinates">Corrdinates:
+                {{x}}
+                /
+                {{y}}</p>
         </div>
         <script>
             new Vue({
                 el: '#app',
                 data: {
-                    title: 'hellow vue js',
-                    link: "http://google.com",
-                    finishedlLink: '<a href="https://www.facebook.com/">Facebook</a>'
+                    counter: 0,
+                    x: 0,
+                    y: 0
                 },
                 methods: {
-                    changeTitle: function (event) {
-                        this.title = event.target.value;
+                    increase: function (step, event) {
+                        this.counter += step;
+                        console.log(event)
                     },
-                    sayHello: function () {
-                        //return 'hello!';
-                        this.title = "Hello!";
-                        return this.title
+                    updateCoordinates: function (event) {
+                        this.x = event.clientX;
+                        this.y = event.clientY
                     }
                 }
             })
