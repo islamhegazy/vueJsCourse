@@ -10,12 +10,33 @@
     </head>
     <body>
         <div id="app">
+            <h3>event modifires</h3>
             <button v-on:click="increase(2,$event)">increase</button>
             <p>{{counter}}</p>
             <p v-on:mousemove="updateCoordinates">Corrdinates:
                 {{x}}
                 /
-                {{y}}</p>
+                {{y}}
+                <!--stop event here-->
+                <span v-on:mousemove="dummy">Dead spot</span>
+                <!-- the click event's propagation will be stopped -->
+                <span v-on:mousemove.stop>Dead spot</span>
+            </p>
+            <!-- the submit event will no longer reload the page -->
+            <form v-on:submit.prevent="onSubmit">
+                <button type="submit">submit</button>
+            </form>
+            <hr>
+            <h3>key modifires</h3>
+            <label>on enter or space</label>
+            <input type="text" v-on:keyup.enter.space="alertMe"/>
+            <!--You can directly use any valid key names exposed via KeyboardEvent.key as modifiers by converting them to kebab-case.-->
+            <label>on page-down</label>
+            <input type="text" v-on:keyup.down="alertMe"/>
+            <!--16. Writing JavaScript Code in the Templates-->
+            <h3>16. Writing JavaScript Code in the Templates</h3>
+            <button v-on:click="counter++">increase</button>
+            <p>{{counter * 2 > 10 ? 'Greater than 10' : "less than 10"}}</p>
         </div>
         <script>
             new Vue({
@@ -33,6 +54,12 @@
                     updateCoordinates: function (event) {
                         this.x = event.clientX;
                         this.y = event.clientY
+                    },
+                    dummy: function (event) {
+                        event.stopPropagation();
+                    },
+                    alertMe: function (event) {
+                        alert(event.target.value)
                     }
                 }
             })
