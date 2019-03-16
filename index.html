@@ -10,17 +10,21 @@
     </head>
     <body>
         <div id="app">
+            <h1>{{title }}</h1>
             <input type="text" v-on:input="changeTitle"/>
-            <p>{{title}}</p>
+            <p v-once>{{title}}</p>
             <p>{{sayHello()}}</p>
             <a v-bind:href="link">google</a>
+            <p>{{finishedlLink}}</p>
+            <p v-html="finishedlLink"></p>
         </div>
         <script>
             new Vue({
                 el: '#app',
                 data: {
                     title: 'hellow vue js',
-                    link:"http://google.com"
+                    link: "http://google.com",
+                    finishedlLink: '<a href="https://www.facebook.com/">Facebook</a>'
                 },
                 methods: {
                     changeTitle: function (event) {
@@ -28,6 +32,7 @@
                     },
                     sayHello: function () {
                         //return 'hello!';
+                        this.title = "Hello!";
                         return this.title
                     }
                 }
